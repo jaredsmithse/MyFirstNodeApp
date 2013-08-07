@@ -10,7 +10,36 @@ EmployeeProvider = function(host, port) {
 	this.db.open(function(){});
 };
 
+//find an employee by their ID
+EmployeeProvider.prototype.findById = function(id, callback) {
+	this.getCollection(function(error, employee_collection) {
+		if(error) callback(error)
+		else {
+			employee_collection.findOne({_id: employee_collection.db.bson_serializer.ObjectID.createFromHexString(id)}, function(error, result) {
+				if(error) callback(error)
+				else callback(null, result)
+			});
+		}
+	});
+};
 
+//update an employee
+EmployeeProvider.prototype.update = function(employeeID, employees, callback) {
+	this.getCollection(function(error, employee_collection) {
+		if(error) callback(error);
+		else {
+			employee_collection.update(
+				{_id: employee_collection.db.bson_serializer.ObjectID.createFromHexString(employeeID)},
+				employees,
+				function(error, employees) {
+					if(error) callback(error);
+					else callback(null, employees)
+				});
+		}
+	});
+};
+
+//get the collection of all employees
 EmployeeProvider.prototype.getCollection = function(callback) {
 	this.db.collection('employees', function(error, employee_collection) {
 		if(error) callback(error);
