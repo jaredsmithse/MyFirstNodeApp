@@ -10,5 +10,10 @@
     "jade": "*",
     "stylus": "*",
     "mongodb": ">= 0.9.6-7"
+  },
+  "devDependencies": {
+    "mocha": "~1.10.0",
+    "istanbul": "~0.1.36",
+    "mocha-istanbul": "~0.2.0"
   }
 }
