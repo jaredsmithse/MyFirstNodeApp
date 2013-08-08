@@ -59,6 +59,16 @@ app.post('/employee/new', function(request, response) {
 	});
 });
 
+//update an employee
+app.get('/employee/:id/edit', function(request, response) {
+	employeeProvider.findById(request.param('_id'), function(error, employee) {
+		response.render('employee_edit',
+		{
+			employee: employee
+		});
+	});
+});
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
